@@ -1,0 +1,29 @@
+{
+  "name": "ccshop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zaishenbian/ccShop.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zaishenbian/ccShop/issues"
+  },
+  "homepage": "https://github.com/zaishenbian/ccShop#readme",
+  "dependencies": {
+    "ioredis": "^4.3.0",
+    "koa": "^2.6.2",
+    "koa-bodyparser": "^4.2.1",
+    "koa-logger": "^3.2.0",
+    "koa-router": "^7.4.0",
+    "koa-session2": "^2.2.8",
+    "koa-static": "^5.0.0",
+    "mongoose": "^5.4.0"
+  }
+}
