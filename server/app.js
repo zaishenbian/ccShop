@@ -6,9 +6,12 @@ const Koa = require('koa');
 const bodyParser = require('koa-bodyparser');
 const koaStatic = require('koa-static');
 const koaLogger = require('koa-logger');
+const session = require('koa-session2');
+const mongoose = require('mongoose');
 
 const config = require('../config');
 const routers = require('./routers/index');
+const Store = require('./models/store');
 
 const app = new Koa();
 
@@ -23,8 +26,25 @@ app.use(koaStatic(
   path.join(__dirname, '../static')
 ));
 
+//配置session
+app.use(session({
+  key: 'SESSIONID',
+  store: new Store()
+}))
+
 //初始化路由中间件
 app.use(routers.routes()).use(routers.allowedMethods());
+
+//连接mongodb数据库
+mongoose.connect(config.mongoUrl, {useNewUrlParser: true});
+mongoose.connection
+  .on("connected",function () {
+    console.log("mongodb connected success");
+}).on("error",function () {
+    console.log("mongodb connected fail");
+}).on("disconnected",function () {
+    console.log("mongodb connected disconnected");
+})
 
 //监听启动端口
 app.listen(config.port);

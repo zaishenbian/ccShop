@@ -1,5 +1,7 @@
 # ccShop
 
+xss需要考虑（xss包）
+
 后端代码目录结构
 
 	  ├── package.json 

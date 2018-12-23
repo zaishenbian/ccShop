@@ -59,6 +59,11 @@ const datatime = {
     return nowDatetime
   },
 
+  localDate() {
+    const date = new Date();
+    date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+    return date;
+  }
 }
 
 module.exports = datatime
