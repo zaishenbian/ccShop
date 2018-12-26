@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const datetime = require('../utils/datetime');
 const Schema = mongoose.Schema;
 
-const AdminSchema = new Schema({
+const UserSchema = new Schema({
   userName: {
     type: String,
     unique: true
@@ -13,7 +13,10 @@ const AdminSchema = new Schema({
   //昵称
   nickName: String,
   //手机号
-  telePhone: Number,
+  telePhone: {
+    type: Number,
+    unique: true
+  },
   //注册时间
   createTime: {
     type: Date,
@@ -26,6 +29,6 @@ const AdminSchema = new Schema({
   }
 })
 
-const Admin = mongoose.model('Admin', AdminSchema);
+const User = mongoose.model('User', UserSchema);
 
-module.exports = Admin;
+module.exports = User;
