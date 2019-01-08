@@ -4,7 +4,7 @@
   "description": "",
   "main": "server/app.js",
   "scripts": {
-    "start": "node ./server/app",
+    "start": "supervisor ./server/app",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -25,6 +25,15 @@
     "koa-router": "^7.4.0",
     "koa-session2": "^2.2.8",
     "koa-static": "^5.0.0",
-    "mongoose": "^5.4.0"
+    "mongoose": "^5.4.0",
+    "validator": "^10.10.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.12.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0"
   }
 }

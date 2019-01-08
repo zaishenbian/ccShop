@@ -1,14 +1,15 @@
 /**
  * 商品模块路由
  */
-const router = require('koa-router')();
+const router = require('koa-router')()
 
 router
-  .get('/getGoods', async (ctx, next) => {
-    ctx.body = 'hello world';
+  .get('/addGoods', async (ctx, next) => {
+    let reqQuery = ctx.query
+    ctx.body = reqQuery
   })
-  .post('/addGoods', async (ctx, next) => {
+  .post('/goods', async (ctx, next) => {
 
   })
 
-module.exports = router;
+module.exports = router
