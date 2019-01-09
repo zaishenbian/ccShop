@@ -25,7 +25,7 @@
     "koa-router": "^7.4.0",
     "koa-session2": "^2.2.8",
     "koa-static": "^5.0.0",
-    "mongoose": "^5.4.0",
+    "mongoose": "^5.2.8",
     "validator": "^10.10.0"
   },
   "devDependencies": {
