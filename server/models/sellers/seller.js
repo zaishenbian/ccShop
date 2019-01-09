@@ -21,6 +21,12 @@ SellerSchema.statics = {
   },
   findSellerByName (name) {
     return this.find({ name: name })
+  },
+  findSellerById (_id) {
+    return this.findOne({ _id: _id })
+  },
+  updateSeller (_id, sellerInfo) {
+    return this.model('Seller').findOneAndUpdate({ _id: _id }, { $set: sellerInfo })
   }
 }
 

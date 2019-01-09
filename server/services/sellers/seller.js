@@ -11,13 +11,13 @@ const sellerService = {
     let defaultSellerInfo = {
       name: '',
       describe: '',
-      telephone: '',
+      telePhone: '',
       weixin: ''
     }
     sellerInfo = Object.assign(defaultSellerInfo, sellerInfo)
     const regExp = {
-      telephone: /^1[34578]\d{9}$/g,
-      describe: /^[\w\W]{0,50}$/g
+      telePhone: /^1[34578]\d{9}$/g,
+      describe: /^[\w\W]{1,50}$/g
     }
     for (const key of Object.keys(sellerInfo)) {
       if (regExp.hasOwnProperty(key)) {
@@ -37,6 +37,13 @@ const sellerService = {
       }
     }
     return result
+  },
+  // 更新商家信息时排除_id, name字段
+  formatSellerInfo (sellerInfo) {
+    const seller = Object.assign({}, sellerInfo)
+    delete seller._id
+    delete seller.name
+    return seller
   }
 }
 

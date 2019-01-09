@@ -12,19 +12,19 @@ const responseFomatter = async (ctx, next) => {
   // 根据返回值统一返回数据格式
   if (ctx.body) {
     const body = ctx.body
-    if (body.code === 0) {
+    if (body.code === 0 || body.code === 1) {
       ctx.response.status = 200
       ctx.response.body = Object.assign({
         code: 0,
         message: API_SUCCESS_CODE
       }, body)
-    } else if (body.code === 1) {
+    } else if (body.code === 2) {
       ctx.response.status = 401
       ctx.response.body = Object.assign({
         code: 1,
         message: API_AUTH_FAILED_CODE
       }, body)
-    } else if (body.code === 2) {
+    } else if (body.code === 3) {
       ctx.response.status = 500
       ctx.response.body = Object.assign({
         code: 2,
@@ -34,7 +34,7 @@ const responseFomatter = async (ctx, next) => {
   } else {
     ctx.response.status = 500
     ctx.response.body = {
-      code: 2,
+      code: 3,
       message: API_FAILED_CODE
     }
   }
