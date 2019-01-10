@@ -3,6 +3,7 @@
  */
 const sellerService = require('../../services/sellers/seller')
 const sellerModel = require('../../models/sellers/seller')
+const sellerCode = require('../../codes/seller')
 
 const sellerController = {
   // 新增商户
@@ -19,7 +20,7 @@ const sellerController = {
       if (sellers.length > 0) {
         ctx.body = {
           code: 1,
-          message: '商户名已存在'
+          message: sellerCode.ERROR_EXEIST_NAME
         }
       } else {
         try {
@@ -52,7 +53,7 @@ const sellerController = {
     }
   },
   // 查询商户信息
-  async querySeller (ctx, next) {
+  async getSeller (ctx, next) {
     const _id = ctx.request.query._id
     try {
       const sellerInfo = await sellerModel.findSellerById(_id)

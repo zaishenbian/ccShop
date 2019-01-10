@@ -1,5 +1,10 @@
 /**
  * 统一接口返回格式，在app.use(router)之前调用
+ * code
+ *  0 请求成功返回200
+ *  1 业务逻辑错误返回200
+ *  2 无权限返回401
+ *  3 服务端错误返回500
  */
 const API_SUCCESS_CODE = 'success'
 const API_FAILED_CODE = '服务端错误，请稍后重试'

@@ -5,7 +5,7 @@ const router = require('koa-router')()
 const sellerController = require('../../controllers/sellers/seller')
 
 router
-  .get('/', sellerController.querySeller)
+  .get('/', sellerController.getSeller)
   .post('/', sellerController.addSeller)
   .put('/', sellerController.updateSeller)
 
