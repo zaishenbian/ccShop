@@ -47,6 +47,13 @@ GoodsSchema.virtual('stockAmount').get(function () {
 
 GoodsSchema.statics = {
   // 根据_id查询商品
+  getGoodsById (_id) {
+    return this.model('Goods').find({ _id: _id })
+  },
+  // 添加商品
+  addGoods (goodsInfo) {
+    return this.model('Goods').create(goodsInfo)
+  }
 }
 
 const Goods = mongoose.model('Goods', GoodsSchema)

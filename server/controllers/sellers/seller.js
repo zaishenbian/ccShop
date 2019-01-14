@@ -62,7 +62,6 @@ const sellerController = {
         data: sellerInfo
       }
     } catch (error) {
-      console.log(error)
       ctx.body = { code: 3 }
     }
   }

@@ -11,7 +11,8 @@ const sellerCode = {
   ERROR_TELEPHONE: '请输入正确的手机号',
   ERROR_WEIXIN: '请输入正确的微信号',
   ERROR_SERVER: '服务端异常，请稍后重试',
-  ERROR_EXEIST_NAME: '商铺名已存在'
+  ERROR_EXEIST_NAME: '商铺名已存在',
+  ERROR_NOEXEIST_SELLER: '店铺不存在'
 }
 
 module.exports = sellerCode
