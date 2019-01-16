@@ -26,6 +26,8 @@ const GoodsSchema = new Schema({
   ],
   // 商品价格
   price: Number,
+  // 商品库存
+  stockAmount: Number,
   // 商品SKU
   goodsSKU: [
     {
@@ -36,19 +38,53 @@ const GoodsSchema = new Schema({
 }, { virtual: true })
 
 // 虚拟属性定义商品的库存和销量
-GoodsSchema.virtual('stockAmount').get(function () {
-  let goodsSKU = this.goodsSKU
-  let stockAmount = 0
-  goodsSKU.forEach(SKU => {
-    stockAmount += SKU.stockAmount
-  })
-  return stockAmount
-})
+// GoodsSchema.virtual('stockAmount').get(function () {
+//   let goodsSKU = this.goodsSKU
+//   let stockAmount = 0
+//   goodsSKU.forEach(SKU => {
+//     stockAmount += SKU.stockAmount
+//   })
+//   return stockAmount
+// })
 
 GoodsSchema.statics = {
+  // 查询所有商品
+  getAllGoods () {
+    return this.model('Goods').find({})
+  },
   // 根据_id查询商品
   getGoodsById (_id) {
-    return this.model('Goods').find({ _id: _id })
+    return this.model('Goods').aggregate([
+      {
+        $match: {
+          _id: new mongoose.Types.ObjectId(_id)
+        }
+      },
+      {
+        $lookup: {
+          from: 'GoodsSKU',
+          localField: 'goodsSKU',
+          foreignField: '_id',
+          as: 'goodsSKU'
+        }
+      },
+      {
+        $project: {
+          name: 1,
+          describe: 1,
+          detail: 1,
+          seller: 1,
+          category: 1,
+          goodsImages: 1,
+          price: 1,
+          stockAmount: 1,
+          goodsSKU: 1,
+          allStockAmount: {
+            $sum: '$goodsSKU.stockAmount'
+          }
+        }
+      }
+    ])
   },
   // 添加商品
   addGoods (goodsInfo) {

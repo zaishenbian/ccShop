@@ -10,15 +10,18 @@ const categoryCode = require('../../codes/category')
 
 const goodsController = {
   async getAllGoods (ctx, next) {
-
+    const allGoodsInfo = await goodsModel.getAllGoods()
+    ctx.body = allGoodsInfo
   },
   async getGoods (ctx, next) {
-
+    const query = ctx.request.query
+    const _id = query._id
+    const goodsInfo = await goodsModel.getGoodsById(_id)
+    ctx.body = goodsInfo
   },
   async addGoods (ctx, next) {
     const goodsInfo = ctx.request.body
     const result = goodsService.validateGoods(goodsInfo)
-    console.log(result)
     if (result) {
       ctx.body = {
         code: 1,
