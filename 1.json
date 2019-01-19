@@ -1,0 +1,31 @@
+{
+	"name":"ikbc 3000",
+	"describe":"入门级机械键盘",
+	"detail":"专业的入门级机械键盘",
+	"seller":"5c36146202618325084f4302",
+	"category":"5c3caa44521c0c1e403f3dba",
+	"goodsImages":["localhost:3000/test1.png","localhost:3000/test2.png"],
+	"price":468,
+	"goodsSKU":[
+		{
+			"price":100,
+			"stockAmount":20,
+			"goodsImages":["localhost:3000/test1.png","localhost:3000/test2.png"],
+			"sellerAmount":10,
+			"attrMatch":{
+				"attrKey":"型号",
+				"attrVal":["小","中","大"]
+			}
+		},
+		{
+			"price":110,
+			"stockAmount":30,
+			"goodsImages":["localhost:3000/test1.png","localhost:3000/test2.png"],
+			"sellerAmount":10,
+			"attrMatch":{
+				"attrKey":"颜色",
+				"attrVal":["红","蓝","黑"]
+			}
+		}
+	]
+}

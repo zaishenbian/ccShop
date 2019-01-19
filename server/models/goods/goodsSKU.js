@@ -23,6 +23,13 @@ const GoodsSKUSchema = new Schema({
   ]
 })
 
+GoodsSKUSchema.statics = {
+  // 添加SKU
+  addGoodsSKU (SKU) {
+    return this.model('GoodsSKU').create(SKU)
+  }
+}
+
 const GoodsSKU = mongoose.model('GoodsSKU', GoodsSKUSchema)
 
 module.exports = GoodsSKU
