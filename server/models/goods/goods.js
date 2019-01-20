@@ -62,7 +62,7 @@ GoodsSchema.statics = {
       },
       {
         $lookup: {
-          from: 'GoodsSKU',
+          from: 'goodsskus',
           localField: 'goodsSKU',
           foreignField: '_id',
           as: 'goodsSKU'
