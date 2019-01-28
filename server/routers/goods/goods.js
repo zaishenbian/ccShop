@@ -8,5 +8,6 @@ router
   .get('/allGoods', goodsController.getAllGoods)
   .get('/', goodsController.getGoods)
   .post('/', goodsController.addGoods)
+  .delete('/', goodsController.deleteGoods)
 
 module.exports = router

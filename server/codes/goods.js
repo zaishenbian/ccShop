@@ -12,7 +12,8 @@ const sellerCode = {
   ERROR_NAME: '请输入1-20字的商品名称',
   ERROR_DESCRIBE: '请输入1-50字的商品描述',
   ERROR_PRICE: '请输入正确的价格',
-  ERROR_NOEXEIST_SELLER: '店铺不存在'
+  ERROR_NOEXEIST_SELLER: '店铺不存在',
+  ERROR_NOWXEIST_GOODS: '商品不存在'
 }
 
 module.exports = sellerCode

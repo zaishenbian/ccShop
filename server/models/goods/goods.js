@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
+const goodsSKUModel = require('./goodsSKU')
 
 const GoodsSchema = new Schema({
   // 商品名称
@@ -89,6 +90,20 @@ GoodsSchema.statics = {
   // 添加商品
   addGoods (goodsInfo) {
     return this.model('Goods').create(goodsInfo)
+  },
+  // 删除指定商品
+  async deleteGoods (_id) {
+    console.log(_id)
+    let goodsInfo = await this.model('Goods').findOne({ _id: _id })
+    if (goodsInfo) {
+      let goodsSKUs = goodsInfo.goodsSKU
+      await Promise.all(goodsSKUs.map(SKUId => {
+        return goodsSKUModel.deleteOne({ _id: SKUId })
+      }))
+      return this.model('Goods').deleteOne({ _id: _id })
+    } else {
+      return false
+    }
   }
 }
 

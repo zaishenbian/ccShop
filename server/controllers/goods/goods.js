@@ -10,6 +10,7 @@ const goodsAttrKeyModel = require('../../models/goods/goodsAttrKey')
 const goodsAttrValModel = require('../../models/goods/goodsAttrVal')
 const sellerCode = require('../../codes/seller')
 const categoryCode = require('../../codes/category')
+const goodsCode = require('../../codes/goods')
 
 const goodsController = {
   async getAllGoods (ctx, next) {
@@ -32,6 +33,19 @@ const goodsController = {
         ctx.body = { code: 0 }
       } catch (error) {
         ctx.body = { code: 3 }
+      }
+    }
+  },
+  async deleteGoods (ctx, next) {
+    const query = ctx.request.query
+    const _id = query._id
+    const result = await goodsModel.deleteGoods(_id)
+    if (result) {
+      ctx.body = { code: 0 }
+    } else {
+      ctx.body = {
+        code: 1,
+        message: goodsCode.ERROR_NOWXEIST_GOODS
       }
     }
   }
@@ -66,49 +80,18 @@ async function validateGoodsInfo (ctx, goodsInfo) {
     }
     // 获取goodsSKU数据
     const goodsSKU = goodsInfo.goodsSKU
-    const goodsSKUIdArr = []
-    const SKUIterator = createIterator(goodsSKU)
-    let SKU = SKUIterator.next()
-    let SKUDone = SKU.done
-    while (!SKUDone) {
-      let SKUValue = SKU.value
-      const attrMatch = SKUValue.attrMatch
-      const attrKeyName = attrMatch.attrKey
-      const attrKey = await goodsAttrKeyModel.addAttrKey(attrKeyName)
-      const attrKeyId = attrKey._id
-      const attrValNames = attrMatch.attrVal
-      const valNamesIterator = createIterator(attrValNames)
-      let valName = valNamesIterator.next()
-      let attrValDone = valName.done
-      let attrMatchIdArr = []
-      while (!attrValDone) {
-        const attrVal = await goodsAttrValModel.addAttrVal(attrKeyId, valName.value)
-        attrMatchIdArr.push(attrVal._id)
-        valName = valNamesIterator.next()
-        attrValDone = valName.done
-      }
-      SKUValue.attrMatch = attrMatchIdArr
-      SKUValue = await goodsSKUModel.addGoodsSKU(SKUValue)
-      goodsSKUIdArr.push(SKUValue._id)
-      SKU = SKUIterator.next()
-      SKUDone = SKU.done
-    }
-    goodsInfo.goodsSKU = goodsSKUIdArr
+    const goodsSKUsId = await Promise.all(goodsSKU.map(async SKU => {
+      let attrMatch = SKU.attrMatch
+      let attrKey = await goodsAttrKeyModel.addAttrKey(attrMatch.attrKey)
+      let attrKeyId = attrKey._id
+      let attrValsId = await Promise.all(attrMatch.attrVal.map(val => {
+        return goodsAttrValModel.addAttrVal(attrKeyId, val)
+      }))
+      SKU.attrMatch = attrValsId
+      return goodsSKUModel.addGoodsSKU(SKU)
+    }))
+    goodsInfo.goodsSKU = goodsSKUsId
     return true
-  }
-}
-
-function createIterator (iterms) {
-  let i = 0
-  return {
-    next () {
-      let done = (i >= iterms.length)
-      let value = !done ? iterms[i++] : undefined
-      return {
-        done,
-        value
-      }
-    }
   }
 }
 
