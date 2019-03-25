@@ -2,30 +2,48 @@
 	"name":"ikbc 3000",
 	"describe":"入门级机械键盘",
 	"detail":"专业的入门级机械键盘",
-	"seller":"5c36146202618325084f4302",
-	"category":"5c3caa44521c0c1e403f3dba",
+	"seller":"5c9880026e4d1d066caf279a",
+	"category":"5c9880f06e4d1d066caf279c",
 	"goodsImages":["localhost:3000/test1.png","localhost:3000/test2.png"],
 	"price":468,
+	"attrMatch": [
+		{
+			"attrKey": "型号",
+			"attrVal": ["小号", "大号"]
+		},
+		{
+			"attrKey":"颜色",
+			"attrVal":["红色","白色"]
+		}
+	],
 	"goodsSKU":[
 		{
 			"price":100,
 			"stockAmount":20,
 			"goodsImages":["localhost:3000/test1.png","localhost:3000/test2.png"],
 			"sellerAmount":10,
-			"attrMatch":{
-				"attrKey":"型号",
-				"attrVal":["小","中","大"]
-			}
+			"attrVals": ["小号", "红色"]
 		},
 		{
 			"price":110,
 			"stockAmount":30,
 			"goodsImages":["localhost:3000/test1.png","localhost:3000/test2.png"],
 			"sellerAmount":10,
-			"attrMatch":{
-				"attrKey":"颜色",
-				"attrVal":["红","蓝","黑"]
-			}
+			"attrVals": ["小号", "白色"]
+		},
+		{
+			"price":120,
+			"stockAmount":50,
+			"goodsImages":["localhost:3000/test1.png","localhost:3000/test2.png"],
+			"sellerAmount":10,
+			"attrVals": ["大号", "红色"]
+		},
+		{
+			"price":130,
+			"stockAmount":40,
+			"goodsImages":["localhost:3000/test1.png","localhost:3000/test2.png"],
+			"sellerAmount":10,
+			"attrVals": ["大号", "白色"]
 		}
 	]
 }

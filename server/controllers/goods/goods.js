@@ -78,16 +78,32 @@ async function validateGoodsInfo (ctx, goodsInfo) {
         message: categoryCode.ERROR_NOEXEIST_CATEGORY
       }
     }
+    // 获取规格分组
+    const attrMatch = goodsInfo.attrMatch
+    let tempAttrMatch = new Map() // 缓存规格分组
+    await Promise.all(attrMatch.map(async match => {
+      let attrKey = await goodsAttrKeyModel.addAttrKey(match.attrKey)
+      let attrKeyId = attrKey._id
+      let attrVals = match.attrVal
+      await Promise.all(attrVals.map(async val => {
+        let attrVal = await goodsAttrValModel.addAttrVal(attrKeyId, val)
+        tempAttrMatch.set(val, attrVal._id)
+      }))
+    }))
     // 获取goodsSKU数据
     const goodsSKU = goodsInfo.goodsSKU
     const goodsSKUsId = await Promise.all(goodsSKU.map(async SKU => {
-      let attrMatch = SKU.attrMatch
-      let attrKey = await goodsAttrKeyModel.addAttrKey(attrMatch.attrKey)
-      let attrKeyId = attrKey._id
-      let attrValsId = await Promise.all(attrMatch.attrVal.map(val => {
-        return goodsAttrValModel.addAttrVal(attrKeyId, val)
-      }))
-      SKU.attrMatch = attrValsId
+      // let attrMatch = SKU.attrMatch
+      // let attrKey = await goodsAttrKeyModel.addAttrKey(attrMatch.attrKey)
+      // let attrKeyId = attrKey._id
+      // let attrValsId = await Promise.all(attrMatch.attrVal.map(val => {
+      //   return goodsAttrValModel.addAttrVal(attrKeyId, val)
+      // }))
+      // SKU.attrMatch = attrValsId
+      // return goodsSKUModel.addGoodsSKU(SKU)
+      SKU.attrVals = SKU.attrVals.map(val => {
+        return tempAttrMatch.get(val)
+      })
       return goodsSKUModel.addGoodsSKU(SKU)
     }))
     goodsInfo.goodsSKU = goodsSKUsId

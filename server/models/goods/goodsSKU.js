@@ -15,7 +15,7 @@ const GoodsSKUSchema = new Schema({
   // 这一个SKU的已售数量
   sellerAmount: Number,
   // 这一个SKU的属性搭配方式
-  attrMatch: [
+  attrVals: [
     {
       type: Schema.Types.ObjectId,
       ref: 'GoosAttrVal'

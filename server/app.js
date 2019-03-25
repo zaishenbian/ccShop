@@ -38,7 +38,11 @@ app.use(responseFormatter)
 app.use(routers.routes()).use(routers.allowedMethods())
 
 // 连接mongodb数据库
-mongoose.connect(config.mongoUrl, { useNewUrlParser: true })
+mongoose.connect(config.mongoUrl, { 
+  useNewUrlParser: true,
+  auto_reconnect: true,
+  poolSize: 10
+})
 mongoose.connection
   .on('connected', function () {
     console.log('mongodb connected success')
